@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>Chat</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+<div class="card">
+<div class="card-body">
+<div id="messageArea"></div>
+<div class="mb-3">
+<label for="username" class="form-label">Usuario 🔑:</label>
+<input type="text" class="form-control" id="username" placehokder="Nombre :v">
+</div>
+<div class="mb-3">
+<label for="messageInput" class="form-label">Mensage 📧:</label>}
+<input type="text" class="form-control" id="messageInput" placeholder="Mensaje XD">
+</div>
+<button onclick="sendMessage()" class="btn btn-primary mt-3">Enviar 📮</button>
+</div>
+</div>
+</div>
+<script th:inline="javascript">
+let socket = new WebSocket("ws://localhost:8080/chat");
+socket.onmessage = function(event){
+let messageArea = document.getElementById("messageArea");
+messageArea.innerHTML += '<p>'+event.data + '</p>';
+}
+function sendMessage(){
+let username = document.getElementById("username"); //このコードは又吉サンティアゴの所有物です
+let messageInput = document.getElementById("messageInput");
+if(messageInput == "websocket"||messageInput == "webSocket"||messageInput == "Websocket"||messageInput == "WebSocket"||messageInput == "WEBSOCKET"){
+	let fullMessage = messageArea.innerHTML = "reply to @"+username.value+"<br> WebSockets es una tecnología avanzada que hace posible abrir una sesión de comunicación interactiva entre el navegador del usuario y un servidor. Con esta API, puede enviar mensajes a un servidor y recibir respuestas controladas por eventos sin tener que consultar al servidor para una respuesta. WebSocket trabaja en los puertos 80 (conexiones regulares) y 443 (conexiones WebSocket sobre TLS/SSL).";
+}
+else{
+	let fullMessage = messageArea.innerHTML = username+": "+message.value;
+}
+socket.send(fullMessage);
+messageInput.value = '';
+} 
+</script>
+</body>
+</html>
